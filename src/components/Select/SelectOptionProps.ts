@@ -5,6 +5,7 @@ import { SelectOptionDefault } from './types';
 interface IProps {
   item: SelectOptionDefault;
   active: WithDefault<boolean>;
+  focused: WithDefault<boolean>;
 }
 
 export default class Props implements IProps {
@@ -13,6 +14,10 @@ export default class Props implements IProps {
   })
 
   active = prop<boolean>({
+    default: false,
+  })
+
+  focused = prop<boolean>({
     default: false,
   })
 }

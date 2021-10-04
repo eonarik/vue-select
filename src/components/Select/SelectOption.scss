@@ -1,4 +1,4 @@
-.root {
+.option {
   display: block;
   width: 100%;
   background: none;
@@ -15,6 +15,10 @@
   &:hover, &--active {
     background: #2196f3;
     color: #FFF;
+  }
+
+  &--focused {
+    box-shadow: 0 0 0 1px #000;
   }
 
   &--md {

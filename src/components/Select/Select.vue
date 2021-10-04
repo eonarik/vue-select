@@ -10,6 +10,7 @@ div(
       type="text"
       :value="currentOptionLabel"
       :placeholder="placeholder"
+      @keyup="handleInputKeyPress"
       @click.prevent="setOpened(!opened)"
       readOnly
     )
@@ -20,6 +21,8 @@ div(
         v-for="option in innerOptions"
         :key="option.value"
         :item="option"
+        :active="option.value === value"
+        :focused="isFocused(option.value)"
         @click="onChange"
       )
 </template>
@@ -35,6 +38,7 @@ import {
   SelectOptionsStandart,
   SelectOptionsObject,
   SelectOptionDefault,
+  SelectValue,
 } from './types';
 
 @Options({
@@ -53,6 +57,23 @@ export default class Select extends Vue.with(SelectProps) {
   }
 
   private opened = false;
+
+  setOpened(flag: boolean): void {
+    if (!flag) {
+      this.setFocused(false);
+    }
+    this.opened = flag;
+  }
+
+  private focusedValue: SelectValue | false = false;
+
+  setFocused(value: SelectValue | false): void {
+    this.focusedValue = value;
+  }
+
+  isFocused(value: SelectValue): boolean {
+    return Boolean(this.focusedValue) && this.focusedValue === value;
+  }
 
   get innerOptions(): SelectOptionDefault[] {
     if (Array.isArray(this.options)) {
@@ -116,19 +137,62 @@ export default class Select extends Vue.with(SelectProps) {
   }
 
   onChange(option: SelectOptionDefault): void {
-    this.setOpened(false);
     this.$emit('update:value', option.value);
     this.$emit('change', option.value);
     this.$emit('input', option.value);
-  }
-
-  setOpened(flag: boolean): void {
-    this.opened = flag;
+    this.setOpened(false);
   }
 
   handleClickAway(e: MouseEvent): void {
-    if (this.opened && !this.$refs.root.contains(e.target)) {
+    if (this.opened && e.target && this.$refs?.root && !this.$refs.root.contains(e.target)) {
       this.setOpened(false);
+    }
+  }
+
+  handleInputKeyPress(e: KeyboardEvent): void {
+    switch (e.key) {
+      case 'Enter': {
+        if (this.focusedValue) {
+          const focusedItem = this.innerOptions.find(
+            ({ value }) => value === this.focusedValue,
+          );
+          if (focusedItem) {
+            this.onChange(focusedItem);
+          }
+        } else {
+          this.setOpened(!this.opened);
+        }
+        break;
+      }
+      case 'ArrowUp': {
+        const focusedItemIndex = (
+          this.focusedValue
+            ? this.innerOptions.findIndex(
+              ({ value }) => value === this.focusedValue,
+            )
+            : this.innerOptions.length
+        );
+        const prevFocusedItem = this.innerOptions[focusedItemIndex - 1];
+        if (prevFocusedItem) {
+          this.setFocused(prevFocusedItem.value);
+        }
+        break;
+      }
+      case 'ArrowDown': {
+        const focusedItemIndex = (
+          this.focusedValue
+            ? this.innerOptions.findIndex(
+              ({ value }) => value === this.focusedValue,
+            )
+            : -1
+        );
+        const nextFocusedItem = this.innerOptions[focusedItemIndex + 1];
+        if (nextFocusedItem) {
+          this.setFocused(nextFocusedItem.value);
+        }
+        break;
+      }
+      default:
     }
   }
 

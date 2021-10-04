@@ -1,7 +1,8 @@
 <template lang="pug">
 button(
-  :class="['root', { 'root--active': active }]",
+  :class="['option', { 'option--active': active, 'option--focused': focused }]",
   type="button"
+  tabindex="-1"
   @click.prevent="onClick"
 ) {{ item.label }}
 </template>

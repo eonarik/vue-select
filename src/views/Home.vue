@@ -47,7 +47,9 @@
       @update:value="value1 = $event"
     )
       template(v-slot:default="{ label }")
-        input(type="text", :value="label")
+        div Current selected element: &nbsp;
+          b
+            i {{ label }}
 
       template(v-slot:options="{ options }")
         ul
