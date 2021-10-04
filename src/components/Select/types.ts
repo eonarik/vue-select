@@ -1,5 +1,9 @@
 export type SelectValue = string | number;
 
+export type SelectSizes = (
+  'sm' | 'md' | 'lg'
+);
+
 export interface SelectOptionDefault {
   label: string;
   value: SelectValue;

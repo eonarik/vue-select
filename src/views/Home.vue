@@ -65,7 +65,25 @@
       :options="options1"
       :value="value1"
       @update:value="value1 = $event"
-      :disabled="true"
+      disabled
+    )
+
+  .layout__cell
+    h3 Medium size
+    Select(
+      :options="options1"
+      :value="value1"
+      @update:value="value1 = $event"
+      :size="'md'"
+    )
+
+  .layout__cell
+    h3 Large size
+    Select(
+      :options="options1"
+      :value="value1"
+      @update:value="value1 = $event"
+      :size="'lg'"
     )
   </template>
 

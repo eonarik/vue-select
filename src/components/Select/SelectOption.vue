@@ -1,6 +1,11 @@
 <template lang="pug">
 button(
-  :class="['option', { 'option--active': active, 'option--focused': focused }]",
+  :class="['option', {\
+    'option--active': active,\
+    'option--focused': focused,\
+    'option--md': size === 'md',\
+    'option--lg': size === 'lg',\
+  }]",
   type="button"
   tabindex="-1"
   @click.prevent="onClick"

@@ -3,7 +3,11 @@ p {{ options }}
 
 div(
   ref="root"
-  :class="['select', { 'select--opened': opened }]"
+  :class="['select', {\
+    'select--opened': opened,\
+    'select--md': size === 'md',\
+    'select--lg': size === 'lg',\
+  }]"
 )
   slot(:label="currentOptionLabel")
     input.select__input(
@@ -24,6 +28,7 @@ div(
         :item="option"
         :active="option.value === value"
         :focused="isFocused(option.value)"
+        :size="size"
         @click="onChange"
       )
 </template>

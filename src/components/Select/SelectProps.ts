@@ -1,6 +1,6 @@
 import { prop, WithDefault } from 'vue-class-component';
 
-import { SelectOptions, SelectValue } from './types';
+import { SelectOptions, SelectValue, SelectSizes } from './types';
 
 interface OptionKeys {
   label: string;
@@ -11,8 +11,9 @@ interface IProps {
   options: SelectOptions;
   value?: SelectValue;
   optionKeys?: WithDefault<OptionKeys>;
+  size: WithDefault<SelectSizes>;
   placeholder?: string;
-  disabled?: WithDefault<boolean>;
+  disabled: WithDefault<boolean>;
 }
 
 export default class Props implements IProps {
@@ -27,6 +28,10 @@ export default class Props implements IProps {
       label: 'label',
       value: 'value',
     },
+  })
+
+  size = prop<SelectSizes>({
+    default: 'sm',
   })
 
   placeholder = prop<string>({})
