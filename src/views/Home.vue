@@ -3,28 +3,34 @@
   .layout__cell
     h3 Primitive
     Select(
-      :options="optionsPrimitive"
+      :options="options1"
+      :value="value1"
+      @update:value="value1 = $event"
     )
   .layout__cell
     h3 Standart 1
     Select(
-      :options="optionsStandart1"
+      :options="options2"
+      v-model:value="value2"
     )
   .layout__cell
     h3 Standart 2
     Select(
-      :options="optionsStandart2"
+      :options="options3"
+      v-model:value="value3"
       :optionKeys="{ label: 'title', value: 'id' }"
     )
   .layout__cell
     h3 Object 1
     Select(
-      :options="optionsObject1"
+      :options="options4"
+      v-model:value="value4"
     )
   .layout__cell
     h3 Object 2
     Select(
-      :options="optionsObject2"
+      :options="options4"
+      v-model:value="value4"
       :optionKeys="{ label: 'title', value: 'id' }"
     )
 </template>
@@ -45,11 +51,16 @@ import {
 @Options({
   data() {
     return {
-      optionsPrimitive,
-      optionsStandart1,
-      optionsStandart2,
-      optionsObject1,
-      optionsObject2,
+      options1: optionsPrimitive,
+      options2: optionsStandart1,
+      options3: optionsStandart2,
+      options4: optionsObject1,
+      options5: optionsObject2,
+      value1: optionsPrimitive[0],
+      value2: optionsStandart1[0].value,
+      value3: optionsStandart2[0].id,
+      value4: Object.keys(optionsObject1)[0],
+      value5: Object.keys(optionsObject2)[0],
     };
   },
   components: {

@@ -1,13 +1,16 @@
 <template lang="pug">
-div {{ innerOptions }}
 .root.root--opened.root--lg
-  input.input(type="text")
+  input.input(
+    type="text"
+    :value="currentOptionLabel"
+    readOnly
+  )
   .options
     SelectOption(
       v-for="option in innerOptions"
       :key="option.value"
-      :label="option.label"
-      :value="option.value"
+      :item="option"
+      @click="onChange"
     )
 </template>
 
@@ -28,6 +31,11 @@ import {
   components: {
     SelectOption,
   },
+  model: {
+    prop: 'value',
+    event: 'change',
+  },
+  emits: ['update:value'],
 })
 export default class Select extends Vue.with(SelectProps) {
   get innerOptions(): SelectOptionDefault[] {
@@ -84,6 +92,15 @@ export default class Select extends Vue.with(SelectProps) {
     }
 
     return [];
+  }
+
+  get currentOptionLabel(): string {
+    const item = this.innerOptions.find(({ value }) => value === this.value);
+    return item?.label || '';
+  }
+
+  onChange(option: SelectOptionDefault): void {
+    this.$emit('update:value', option.value);
   }
 }
 </script>
