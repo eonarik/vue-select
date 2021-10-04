@@ -12,6 +12,7 @@ div(
       :placeholder="placeholder"
       @keyup="handleInputKeyPress"
       @click.prevent="setOpened(!opened)"
+      :disabled="disabled"
       readOnly
     )
 

@@ -12,6 +12,7 @@ interface IProps {
   value?: SelectValue;
   optionKeys?: WithDefault<OptionKeys>;
   placeholder?: string;
+  disabled?: WithDefault<boolean>;
 }
 
 export default class Props implements IProps {
@@ -29,4 +30,8 @@ export default class Props implements IProps {
   })
 
   placeholder = prop<string>({})
+
+  disabled = prop<boolean>({
+    default: false,
+  })
 }

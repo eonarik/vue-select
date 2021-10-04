@@ -58,6 +58,15 @@
             :key="option.value"
             @click.prevent="value1 = option.value"
           ) {{ option.label }}
+
+  .layout__cell
+    h3 Disabled
+    Select(
+      :options="options1"
+      :value="value1"
+      @update:value="value1 = $event"
+      :disabled="true"
+    )
   </template>
 
 <script lang="ts">
