@@ -7,34 +7,56 @@
       :value="value1"
       @update:value="value1 = $event"
     )
+
   .layout__cell
-    h3 Standart 1
+    h3 Standart 1 / undefined value
     Select(
       :options="options2"
       v-model:value="value2"
       placeholder="Please select me"
     )
+
   .layout__cell
-    h3 Standart 2
+    h3 Standart 2 (custom keys)
     Select(
       :options="options3"
       :optionKeys="{ label: 'title', value: 'id' }"
       v-model:value="value3"
     )
+
   .layout__cell
     h3 Object 1
     Select(
       :options="options4"
       v-model:value="value4"
     )
+
   .layout__cell
-    h3 Object 2
+    h3 Object 2 (custom keys)
     Select(
       :options="options4"
       :optionKeys="{ label: 'title', value: 'id' }"
       v-model:value="value4"
     )
-</template>
+
+  .layout__cell
+    h3 Customize slots
+    Select(
+      :options="options1"
+      :value="value1"
+      @update:value="value1 = $event"
+    )
+      template(v-slot:default="{ label }")
+        input(type="text", :value="label")
+
+      template(v-slot:options="{ options }")
+        ul
+          li(
+            v-for="option in options"
+            :key="option.value"
+            @click.prevent="value1 = option.value"
+          ) {{ option.label }}
+  </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';

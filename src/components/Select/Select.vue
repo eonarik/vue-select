@@ -1,22 +1,27 @@
 <template lang="pug">
+p {{ options }}
+
 div(
   ref="root"
   :class="['select', { 'select--opened': opened }]"
 )
-  input.select__input(
-    type="text"
-    :value="currentOptionLabel"
-    :placeholder="placeholder"
-    @click.prevent="setOpened(!opened)"
-    readOnly
-  )
-  .select__options
-    SelectOption(
-      v-for="option in innerOptions"
-      :key="option.value"
-      :item="option"
-      @click="onChange"
+  slot(:label="currentOptionLabel")
+    input.select__input(
+      type="text"
+      :value="currentOptionLabel"
+      :placeholder="placeholder"
+      @click.prevent="setOpened(!opened)"
+      readOnly
     )
+
+  slot(name="options", :options="innerOptions")
+    .select__options
+      SelectOption(
+        v-for="option in innerOptions"
+        :key="option.value"
+        :item="option"
+        @click="onChange"
+      )
 </template>
 
 <script lang="ts">
