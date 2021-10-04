@@ -1,27 +1,33 @@
-.root {
+.select {
   display: table;
   position: relative;
 
-  &--opened .input {
-    border-radius: 4px 4px 0 0;
+  &--opened {
+    .select__input {
+      border-radius: 4px 4px 0 0;
+    }
+
+    .select__options {
+      display: block;
+    }
   }
 
   &--md {
-    .input {
+    .select__input {
       height: 32px;
       font-size: 16px;
     }
   }
 
   &--lg {
-    .input { 
+    .select__input { 
       height: 40px;
       font-size: 18px;
     }
   }
 }
 
-.input {
+.select__input {
   display: block;
   width: 100%;
   box-sizing: border-box;
@@ -33,7 +39,8 @@
   line-height: 16px;
 }
 
-.options {
+.select__options {
+  display: none;
   background: #FFF;
   padding: 4px 0;
   position: absolute;

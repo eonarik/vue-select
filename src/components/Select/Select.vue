@@ -1,11 +1,15 @@
 <template lang="pug">
-.root.root--opened.root--lg
-  input.input(
+div(
+  ref="root"
+  :class="['select', { 'select--opened': opened }]"
+)
+  input.select__input(
     type="text"
     :value="currentOptionLabel"
+    @click.prevent="setOpened(!opened)"
     readOnly
   )
-  .options
+  .select__options
     SelectOption(
       v-for="option in innerOptions"
       :key="option.value"
@@ -38,6 +42,12 @@ import {
   emits: ['update:value'],
 })
 export default class Select extends Vue.with(SelectProps) {
+  $refs!: {
+    root: HTMLDivElement,
+  }
+
+  private opened = false;
+
   get innerOptions(): SelectOptionDefault[] {
     if (Array.isArray(this.options)) {
       const firstElement = this.options[0];
@@ -100,7 +110,26 @@ export default class Select extends Vue.with(SelectProps) {
   }
 
   onChange(option: SelectOptionDefault): void {
+    this.setOpened(false);
     this.$emit('update:value', option.value);
+  }
+
+  setOpened(flag: boolean): void {
+    this.opened = flag;
+  }
+
+  handleClickAway(e: MouseEvent): void {
+    if (this.opened && !this.$refs.root.contains(e.target)) {
+      this.setOpened(false);
+    }
+  }
+
+  mounted(): void {
+    window.document.addEventListener('click', this.handleClickAway);
+  }
+
+  destroyed(): void {
+    window.document.removeEventListener('click', this.handleClickAway);
   }
 }
 </script>

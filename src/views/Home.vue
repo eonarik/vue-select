@@ -17,8 +17,8 @@
     h3 Standart 2
     Select(
       :options="options3"
-      v-model:value="value3"
       :optionKeys="{ label: 'title', value: 'id' }"
+      v-model:value="value3"
     )
   .layout__cell
     h3 Object 1
@@ -30,8 +30,8 @@
     h3 Object 2
     Select(
       :options="options4"
-      v-model:value="value4"
       :optionKeys="{ label: 'title', value: 'id' }"
+      v-model:value="value4"
     )
 </template>
 
