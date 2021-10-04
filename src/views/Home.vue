@@ -12,6 +12,7 @@
     Select(
       :options="options2"
       v-model:value="value2"
+      placeholder="Please select me"
     )
   .layout__cell
     h3 Standart 2
@@ -57,7 +58,7 @@ import {
       options4: optionsObject1,
       options5: optionsObject2,
       value1: optionsPrimitive[0],
-      value2: optionsStandart1[0].value,
+      value2: undefined,
       value3: optionsStandart2[0].id,
       value4: Object.keys(optionsObject1)[0],
       value5: Object.keys(optionsObject2)[0],

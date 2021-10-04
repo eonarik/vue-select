@@ -6,6 +6,7 @@ div(
   input.select__input(
     type="text"
     :value="currentOptionLabel"
+    :placeholder="placeholder"
     @click.prevent="setOpened(!opened)"
     readOnly
   )
@@ -39,7 +40,7 @@ import {
     prop: 'value',
     event: 'change',
   },
-  emits: ['update:value'],
+  emits: ['update:value', 'change', 'input'],
 })
 export default class Select extends Vue.with(SelectProps) {
   $refs!: {
@@ -112,6 +113,8 @@ export default class Select extends Vue.with(SelectProps) {
   onChange(option: SelectOptionDefault): void {
     this.setOpened(false);
     this.$emit('update:value', option.value);
+    this.$emit('change', option.value);
+    this.$emit('input', option.value);
   }
 
   setOpened(flag: boolean): void {

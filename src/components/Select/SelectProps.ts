@@ -9,8 +9,9 @@ interface OptionKeys {
 
 interface IProps {
   options: SelectOptions;
-  value: SelectValue;
+  value?: SelectValue;
   optionKeys?: WithDefault<OptionKeys>;
+  placeholder?: string;
 }
 
 export default class Props implements IProps {
@@ -18,9 +19,7 @@ export default class Props implements IProps {
     required: true,
   })
 
-  value = prop<SelectValue>({
-    required: true,
-  })
+  value = prop<SelectValue>({})
 
   optionKeys = prop<OptionKeys>({
     default: {
@@ -28,4 +27,6 @@ export default class Props implements IProps {
       value: 'value',
     },
   })
+
+  placeholder = prop<string>({})
 }
