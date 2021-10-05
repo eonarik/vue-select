@@ -95,7 +95,8 @@ export default class Select extends Vue.with(SelectProps) {
 
       // variant 2. standart
       if (typeof firstElement === 'object') {
-        return (this.options as SelectOptionsStandart).map((item) => {
+        // eslint-disable-next-line
+        return (this.options as SelectOptionsStandart<any>).map((item) => {
           if (this.optionKeys) {
             return {
               label: item[this.optionKeys.label],
@@ -111,7 +112,8 @@ export default class Select extends Vue.with(SelectProps) {
     // variant 3. object
     if (typeof this.options === 'object') {
       return Object.keys(this.options).map((key) => {
-        const item = (this.options as SelectOptionsObject)[key];
+        // eslint-disable-next-line
+        const item = (this.options as SelectOptionsObject<any>)[key];
 
         if (typeof item === 'object') {
           if (this.optionKeys) {
@@ -150,7 +152,12 @@ export default class Select extends Vue.with(SelectProps) {
   }
 
   handleClickAway(e: MouseEvent): void {
-    if (this.opened && e.target && this.$refs?.root && !this.$refs.root.contains(e.target)) {
+    if (
+      this.opened
+      && e.target
+      && this.$refs?.root
+      && !this.$refs.root.contains(e.target as Node)
+    ) {
       this.setOpened(false);
     }
   }

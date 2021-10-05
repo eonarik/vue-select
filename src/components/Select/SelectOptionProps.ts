@@ -6,7 +6,7 @@ interface IProps {
   item: SelectOptionDefault;
   active: WithDefault<boolean>;
   focused: WithDefault<boolean>;
-  size: SelectSizes;
+  size?: SelectSizes;
 }
 
 export default class Props implements IProps {
